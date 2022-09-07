@@ -12,13 +12,13 @@
 
 function bullsAndCows(num) {
   const numToStr = String(num);
+  const secret = 5462;
+  const secArray = [...String(secret)];
   if (
-    checkValidNum(num) === true &&
-    checkValidNum(num) === true &&
-    checkAllUnique(num) === true
+    checkValidNum(secret) === true &&
+    checkValidNum(secret) === true &&
+    checkAllUnique(secret) === true
   ) {
-    const secret = "4523";
-    const secArray = [...secret];
     const guess = [...numToStr];
     // console.log(guess);
     let counterBull = 0;
@@ -47,10 +47,14 @@ function bullsAndCows(num) {
         counterCow > 1 ? "s" : ""
       }`
     );
+
+    if (counterBull === 4) {
+      console.log(`Congratulations You have guessed correctly ${secret}`);
+    }
   }
 }
 
-bullsAndCows(4523);
+// bullsAndCows(4271);
 
 function checkValidNum(num) {
   const toStr = String(num);
@@ -83,8 +87,25 @@ function checkAllUnique(num) {
   return false;
 }
 
-// checkAllUnique(1234);
-
-// checkValidNum(1234);
-// console.log(`-----------------------------`);
-// checkAllNum("a234");
+// const readLine = require("readline").createInterface({
+//   input: process.stdin,
+//   output: process.stdout,
+// });
+let secret = 1234;
+//basic:
+var readline = require("readline");
+var rl = readline.createInterface(process.stdin, process.stdout);
+rl.setPrompt("Guess the number: ");
+rl.prompt();
+rl.on("line", function (line) {
+  if (
+    checkValidNum(line) === true &&
+    checkValidNum(line) === true &&
+    checkAllUnique(line) === true
+  ) {
+    if (bullsAndCows(line)) rl.close();
+  }
+  rl.prompt();
+  //   rl.close();
+  //   console.clear();
+});

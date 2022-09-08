@@ -9,10 +9,11 @@
 
 // Feel free to edit / remove the line above, this is just to test the package
 //  Although we may want to use the user's name for something
+const secret = randomNum();
 
 function bullsAndCows(num) {
   const numToStr = String(num);
-  const secret = 5462;
+  //   const secret = 8634;
   const secArray = [...String(secret)];
   if (
     checkValidNum(secret) === true &&
@@ -50,11 +51,12 @@ function bullsAndCows(num) {
 
     if (counterBull === 4) {
       console.log(`Congratulations You have guessed correctly ${secret}`);
+      //   return `Do you want to play again ?`;
     }
   }
 }
 
-// bullsAndCows(4271);
+// bullsAndCows();
 
 function checkValidNum(num) {
   const toStr = String(num);
@@ -77,35 +79,67 @@ function checkAllNum(num) {
 }
 
 function checkAllUnique(num) {
-  const toStr = String(num);
+  const toStr = String(num).split("");
 
-  for (let i = 0; i < toStr.length - 1; i++) {
-    if (toStr[i] !== toStr[i + 1]) {
-      return true;
+  const result = toStr.reduce((acc, item) => {
+    if (!acc.includes(item)) {
+      acc.push(item);
     }
-  }
-  return false;
+    return acc;
+  }, []);
+
+  return result.length === toStr.length;
 }
 
-// const readLine = require("readline").createInterface({
-//   input: process.stdin,
-//   output: process.stdout,
-// });
-let secret = 1234;
+function randomNum() {
+  //   const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  //   let randomIndex1;
+  //   let randomDigit = "";
+
+  //   for (let i = 0; i < arr.length; i++) {
+  //     randomIndex1 = Math.ceil(Math.random() * arr.length - 1);
+  //     if (!randomDigit.includes(randomIndex1) && randomDigit.length !== 4) {
+  //       randomDigit += randomIndex1;
+  //     }
+  //   }
+  //   return randomDigit;
+
+  //   GENERATE RANDOM NUMBERS FROM ARRAY
+
+  const array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  let counter = 0;
+  const totalDigits = 4;
+  let random = "";
+  while (counter < totalDigits) {
+    const idx = Math.ceil(Math.random() * array.length - 1);
+    random += array[idx];
+    // console.log(array);
+    array.splice(idx, 1);
+    counter++;
+  }
+
+  return random;
+}
+
 //basic:
-var readline = require("readline");
-var rl = readline.createInterface(process.stdin, process.stdout);
+let readline = require("readline");
+let rl = readline.createInterface(process.stdin, process.stdout);
 rl.setPrompt("Guess the number: ");
+console.clear();
 rl.prompt();
 rl.on("line", function (line) {
   if (
     checkValidNum(line) === true &&
-    checkValidNum(line) === true &&
+    checkAllNum(line) === true &&
     checkAllUnique(line) === true
   ) {
     if (bullsAndCows(line)) rl.close();
   }
-  rl.prompt();
-  //   rl.close();
-  //   console.clear();
+  //   rl.prompt();
 });
+
+// const allEqual = (arr) =>
+//   arr.every((v) => {
+//     console.log(`v is ${v}, arr is ${arr[0]}`);
+//     return v === arr[0];
+//   });

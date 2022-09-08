@@ -12,49 +12,48 @@
 const secret = randomNum();
 
 function bullsAndCows(num) {
+  console.clear();
   const numToStr = String(num);
-  //   const secret = 8634;
+  //   const secret = 1234;
   const secArray = [...String(secret)];
-  if (
-    checkValidNum(secret) === true &&
-    checkValidNum(secret) === true &&
-    checkAllUnique(secret) === true
-  ) {
-    const guess = [...numToStr];
-    // console.log(guess);
-    let counterBull = 0;
-    let counterCow = 0;
 
-    const filtering = secArray.map((item) => {
-      if (numToStr.includes(item)) {
-        return item;
-      }
-    });
+  const guess = [...numToStr];
+  // console.log(guess);
+  let counterBull = 0;
+  let counterCow = 0;
 
-    for (let i = 0; i < guess.length; i++) {
-      if (secArray[i] === guess[i]) {
-        counterBull++;
-      }
+  const filtering = secArray.map((item) => {
+    if (numToStr.includes(item)) {
+      return item;
     }
+  });
 
-    for (let j = 0; j < filtering.length; j++) {
-      if (secArray[j] !== guess[j] && filtering[j] !== undefined) {
-        counterCow++;
-      }
-    }
-
-    console.log(
-      `${counterBull} bull${counterBull > 1 ? "s" : ""} and ${counterCow} cow${
-        counterCow > 1 ? "s" : ""
-      }`
-    );
-
-    if (counterBull === 4) {
-      console.log(`Congratulations You have guessed correctly ${secret}`);
-      //   return `Do you want to play again ?`;
+  for (let i = 0; i < guess.length; i++) {
+    if (secArray[i] === guess[i]) {
+      counterBull++;
     }
   }
+
+  for (let j = 0; j < filtering.length; j++) {
+    if (secArray[j] !== guess[j] && filtering[j] !== undefined) {
+      counterCow++;
+    }
+  }
+
+  console.log(
+    `${counterBull} bull${counterBull > 1 ? "s" : ""} and ${counterCow} cow${
+      counterCow > 1 ? "s" : ""
+    }`
+  );
+  //   console.clear();
+  if (counterBull === 4) {
+    console.log(`Congratulations You have guessed correctly ${secret}`);
+    // return true;
+    //   return `Do you want to play again ?`;
+  }
 }
+// console.clear();
+// }
 
 // bullsAndCows();
 
@@ -127,19 +126,33 @@ let rl = readline.createInterface(process.stdin, process.stdout);
 rl.setPrompt("Guess the number: ");
 console.clear();
 rl.prompt();
-rl.on("line", function (line) {
+rl.on("line", function (input) {
   if (
-    checkValidNum(line) === true &&
-    checkAllNum(line) === true &&
-    checkAllUnique(line) === true
+    checkValidNum(input) === true &&
+    checkAllNum(input) === true &&
+    checkAllUnique(input) === true
   ) {
-    if (bullsAndCows(line)) rl.close();
+    if (bullsAndCows(input)) {
+      //   console.log(input);
+      rl.close();
+    } else {
+      //   console.log(`Please Enter the Valid Number`);
+      console.log(input);
+      //   console.clear();
+    }
+    // console.clear();
   }
   //   rl.prompt();
 });
 
-// const allEqual = (arr) =>
-//   arr.every((v) => {
-//     console.log(`v is ${v}, arr is ${arr[0]}`);
-//     return v === arr[0];
-//   });
+// console.log("=(')~ ");
+// console.log(" (¯¯¯¯)~ ");
+// console.log(" //¯¯\\\\ ");
+// console.log(`--------------------------`);
+
+// console.log("WW\\O O/WW");
+// console.log("  | v |");
+// console.log("  \\o o/");
+// console.log("   ¯¯¯");
+// console.log(`--------------------------`);
+// // console.log("WW\\O O/WW");

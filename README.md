@@ -19,16 +19,16 @@ After each guess, the player will get a hint to help them guess better next time
 
 The hint tells the player how many bulls and how many cows there were. What are bulls and cows?
 
-- If there are any matching digits and they are in their right positions, they are counted as *"bulls"*.
-- If in different positions, they are counted as *"cows"*.
+- If there are any matching digits and they are in their right positions, they are counted as _"bulls"_.
+- If in different positions, they are counted as _"cows"_.
 
 For example, with a secret number `4271`:
 
 >
+
     Player's try: 1234
 
     Hint: 1 bull and 2 cows
-
 
 How did we arrive at one bull and two cows?
 The bull is the number `2` as it is in the right position.
@@ -41,19 +41,22 @@ There is no limit on the number of guesses - guessing continues until the player
 
 Once the player has guessed the secret number correctly, display a message to congratulate them.
 
-## Getting the input from the terminal 
+## Getting the input from the terminal
 
 Our game will be player vs computer. The computer will come up with a secret number and the player will be trying to guess it.
 
-To gather the player's input we will use an npm package called [`prompt-sync`](https://github.com/heapwolf/prompt-sync).
+To gather the player's input we will use an npm package called [`prompt-sync`](https://github.co// Import package
+const prompt = require('prompt-sync')({ sigint: true });
+// Use package
+let name = prompt('What is your name? '); m/heapwolf/prompt-sync).
 
 We can use the package like so:
 
 ```js
 // Import package
-const prompt = require('prompt-sync')({ sigint: true });
+const prompt = require("prompt-sync")({ sigint: true });
 // Use package
-let name = prompt('What is your name? '); // Note there is a space at the end, so the input does not stick to the question
+let name = prompt("What is your name? "); // Note there is a space at the end, so the input does not stick to the question
 ```
 
 Then the variable name will contain the value that the user entered in the terminal.
@@ -68,12 +71,12 @@ Make sure to validate the input to a certain extent. For example:
 
 Let's make this game even better!
 
-If you have the core of the game up and running, 
+If you have the core of the game up and running,
 here are some cool features you can add next:
 
 - Number of attempts to guess the secret number: There will be no limit of guessing, but we can keep track of how many attempts the player needed to solve the puzzle.
 - Randomized message every time the user has no bulls and no cows: Instead of always showing the same message, let's create a collection of fun messages every time the guess hits no digits.
-- User's name: Let's get the player's name, if they want to share. You can then use the name in the congratulations and  failure messages and hints. If no name is provided, you can use a default like `Player` or `Stranger`. 
+- User's name: Let's get the player's name, if they want to share. You can then use the name in the congratulations and failure messages and hints. If no name is provided, you can use a default like `Player` or `Stranger`.
 - Another round: Once the player has guessed the number correctly, you can ask them to play another round if they want to and restart the game.
 - Another round stats: If the user plays multiple rounds, you display the total of games played and the number of attempts for each game.
 - Maximum number of attempts: If the user cannot guess in N attemps, they lose the game.

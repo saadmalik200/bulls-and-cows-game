@@ -34,6 +34,7 @@ console.log(secret);
 function bullsAndCows(num) {
   /////////////////////////////////////////////////////
 
+  let counter = 3;
   if (
     checkValidNum(num) === true &&
     checkAllNum(num) === true &&
@@ -58,12 +59,14 @@ function bullsAndCows(num) {
     for (let i = 0; i < guess.length; i++) {
       if (secArray[i] === guess[i]) {
         counterBull++;
+        // counter--;
       }
     }
 
     for (let j = 0; j < filtering.length; j++) {
       if (secArray[j] !== guess[j] && filtering[j] !== undefined) {
         counterCow++;
+        // counter--;
       }
     }
 
@@ -72,6 +75,15 @@ function bullsAndCows(num) {
         counterCow > 1 ? "s" : ""
       }`
     );
+
+    console.log(`Attempts remaining: ${counter}`);
+    if (counter === 0) {
+      console.log(`You have lost the game`);
+      rl.close();
+      return;
+    }
+
+    // console.log(counter);
     //   animateLetter();
     //   console.clear();
     if (counterBull === 4) {
@@ -99,57 +111,6 @@ function bullsAndCows(num) {
   }
 
   //////////////////////////////////////
-  //   const numToStr = String(num);
-  //   //   console.log(`This is the string ${numToStr}`);
-  //   //   const secret = 1234;
-  //   const secArray = [...String(secret)];
-
-  //   const guess = [...numToStr];
-  //   // console.log(guess);
-  //   let counterBull = 0;
-  //   let counterCow = 0;
-
-  //   const filtering = secArray.map((item) => {
-  //     if (numToStr.includes(item)) {
-  //       return item;
-  //     }
-  //   });
-
-  //   for (let i = 0; i < guess.length; i++) {
-  //     if (secArray[i] === guess[i]) {
-  //       counterBull++;
-  //     }
-  //   }
-
-  //   for (let j = 0; j < filtering.length; j++) {
-  //     if (secArray[j] !== guess[j] && filtering[j] !== undefined) {
-  //       counterCow++;
-  //     }
-  //   }
-
-  //   console.log(
-  //     `${counterBull} bull${counterBull > 1 ? "s" : ""} and ${counterCow} cow${
-  //       counterCow > 1 ? "s" : ""
-  //     }`
-  //   );
-  //   //   animateLetter();
-  //   //   console.clear();
-  //   if (counterBull === 4) {
-  //     console.log(`Congratulations You have guessed correctly ${secret}`);
-  //     let playAgain = prompt(`Do you want to play again? Y/N `); // y or n
-  //     console.log(playAgain);
-  //     if (playAgain === "y") {
-  //       const secret2 = randomNum();
-  //       console.clear();
-  //       console.log(secret2);
-  //       let input2 = prompt(`Guess the number: `); // y or n
-  //       secret = secret2;
-  //       main(input2);
-  //     } else {
-  //       console.log(`Thankyou for playing `);
-  //       rl.close();
-  //     }
-  //   }
 }
 
 // bullsAndCows();
@@ -244,6 +205,8 @@ rl.on("line", function (input) {
     checkAllUnique(input) === true
   ) {
     if (bullsAndCows(input)) {
+      //   console.log(`This is the new counter`);
+
       rl.close();
     } else {
       //   console.log(input);

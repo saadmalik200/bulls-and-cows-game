@@ -17,17 +17,9 @@
 
 const prompt = require("prompt-sync")({ sigint: true });
 
-function main(num) {
-  counterRemaining = 5;
-  counter = 0;
-  bullsAndCows(num);
-}
-
-// main();
-
 console.clear();
 let secret = randomNum();
-// console.log(secret);
+console.log(secret);
 
 // Bulls and Cows Function
 
@@ -83,28 +75,13 @@ function bullsAndCows(num) {
 
     if (counterRemaining === 0 && counterBull !== 4) {
       console.log(`You have lost the game`);
-      rl.close();
-      return;
+
+      playAgain();
     }
 
-    // console.log(counter);
-    //   animateLetter();
-    //   console.clear();
     if (counterBull === 4) {
       console.log(`Congratulations You have guessed correctly ${secret}`);
-      let playAgain = prompt(`Do you want to play again? Y/N `); // y or n
-      console.log(playAgain);
-      if (playAgain === "y") {
-        const secret2 = randomNum();
-        console.clear();
-        // console.log(secret2);
-        let input2 = prompt(`Guess the number: `); // y or n
-        secret = secret2;
-        main(input2);
-      } else {
-        console.log(`Thankyou for playing `);
-        rl.close();
-      }
+      playAgain();
     }
   } else if (checkValidNum(num) === false) {
     console.log(`Please enter 4 digits!`);
@@ -168,20 +145,39 @@ function randomNum() {
   return random;
 }
 
+// Play Again
+function playAgain() {
+  let playAgain = prompt(`Do you want to play again? Y/N `); // y or n
+
+  if (playAgain === "y") {
+    const secret2 = randomNum();
+    console.clear();
+    console.log(secret2);
+    let input2 = prompt(`Guess the number: `); // y or n
+    secret = secret2;
+    counterRemaining = 5;
+    counter = 0;
+    bullsAndCows(input2);
+  } else {
+    console.log(`Thankyou for playing `);
+    rl.close();
+  }
+}
+
 // Animating Text
 
-// function animateLetter() {
-//   let string = "";
-//   // console.log(this)
+function setTimer() {
+  let string = "";
+  // console.log(this)
 
-//   const interval = setInterval(() => {
-//     console.clear();
-//     string += " ";
-//     console.log(string + "a");
-//   }, 200);
+  const interval = setInterval(() => {
+    console.clear();
+    string += " ";
+    console.log(string + "a");
+  }, 200);
 
-//   setTimeout(() => clearInterval(interval), 8000);
-// }
+  setTimeout(() => clearInterval(interval), 8000);
+}
 
 // Taking the input from User using Terminal
 

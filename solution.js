@@ -18,8 +18,8 @@
 const prompt = require("prompt-sync")({ sigint: true });
 
 function main(num) {
-  //   let myInput = prompt(`Guess the Number: `);
-  //   console.log("My input: ", myInput);
+  counterRemaining = 5;
+  counter = 0;
   bullsAndCows(num);
 }
 
@@ -27,26 +27,26 @@ function main(num) {
 
 console.clear();
 let secret = randomNum();
-console.log(secret);
+// console.log(secret);
 
 // Bulls and Cows Function
 
+let counter = 0;
+let counterRemaining = 5;
 function bullsAndCows(num) {
   /////////////////////////////////////////////////////
 
-  let counter = 3;
   if (
     checkValidNum(num) === true &&
     checkAllNum(num) === true &&
     checkAllUnique(num) === true
   ) {
     const numToStr = String(num);
-    //   console.log(`This is the string ${numToStr}`);
+
     //   const secret = 1234;
     const secArray = [...String(secret)];
 
     const guess = [...numToStr];
-    // console.log(guess);
     let counterBull = 0;
     let counterCow = 0;
 
@@ -75,9 +75,13 @@ function bullsAndCows(num) {
         counterCow > 1 ? "s" : ""
       }`
     );
+    counter++;
+    counterRemaining--;
+    console.log(
+      `Attempts tried: ${counter} and Attempts Remaining: ${counterRemaining}`
+    );
 
-    console.log(`Attempts remaining: ${counter}`);
-    if (counter === 0) {
+    if (counterRemaining === 0 && counterBull !== 4) {
       console.log(`You have lost the game`);
       rl.close();
       return;
@@ -93,7 +97,7 @@ function bullsAndCows(num) {
       if (playAgain === "y") {
         const secret2 = randomNum();
         console.clear();
-        console.log(secret2);
+        // console.log(secret2);
         let input2 = prompt(`Guess the number: `); // y or n
         secret = secret2;
         main(input2);
@@ -134,17 +138,6 @@ function checkAllNum(num) {
   return true;
 }
 
-// function checkAllNum(num) {
-//   const toStr = String(num);
-//   const numList = "0123456789";
-//   for (let i = 0; i < toStr.split("").length; i++) {
-//     if (numList.includes(toStr[i])) {
-//       return true;
-//     }
-//     return false;
-//   }
-// }
-
 function checkAllUnique(num) {
   const toStr = String(num).split("");
 
@@ -177,18 +170,18 @@ function randomNum() {
 
 // Animating Text
 
-function animateLetter() {
-  let string = "";
-  // console.log(this)
+// function animateLetter() {
+//   let string = "";
+//   // console.log(this)
 
-  const interval = setInterval(() => {
-    console.clear();
-    string += " ";
-    console.log(string + "a");
-  }, 200);
+//   const interval = setInterval(() => {
+//     console.clear();
+//     string += " ";
+//     console.log(string + "a");
+//   }, 200);
 
-  setTimeout(() => clearInterval(interval), 8000);
-}
+//   setTimeout(() => clearInterval(interval), 8000);
+// }
 
 // Taking the input from User using Terminal
 
@@ -198,6 +191,7 @@ let rl = readline.createInterface(process.stdin, process.stdout);
 rl.setPrompt("Guess the number: ");
 // console.clear();
 rl.prompt();
+// counter--;
 rl.on("line", function (input) {
   if (
     checkValidNum(input) === true &&

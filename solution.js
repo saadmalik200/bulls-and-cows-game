@@ -25,7 +25,7 @@ let secret = randomNum();
 // Bulls and Cows Function
 
 let counter = 0;
-let counterRemaining = 5;
+let counterRemaining = 7;
 
 function bullsAndCows(num) {
   /////////////////////////////////////////////////////
@@ -223,7 +223,7 @@ function playAgain() {
 
     let input2 = prompt("\x1b[1mGuess the number: ");
     secret = secret2;
-    counterRemaining = 5;
+    counterRemaining = 7;
     counter = 0;
     bullsAndCows(input2);
   } else if (playAgain === "n") {

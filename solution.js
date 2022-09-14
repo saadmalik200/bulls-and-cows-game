@@ -87,11 +87,13 @@ function bullsAndCows(num) {
 
     console.log(`--------------------------------------------`);
     if (counterRemaining === 0 && counterBull !== 4) {
+      console.clear();
       console.log(
         `${chalk.red.underline.bold(
           "YOU HAVE LOST THE GAME YOU LOSER"
         )} ${emoji.get("skull_and_crossbones")}`
       );
+      console.log(`The correct number was: ${secret}`);
       console.log(`--------------------------------------------`);
       playAgain();
     }
@@ -115,6 +117,18 @@ function bullsAndCows(num) {
         `with ${chalk.red("Attempts Remaining:")} ${counterRemaining}`
       );
       console.log(`--------------------------------------------`);
+      console.log("WW\\O O/WW");
+      console.log("  | v |");
+      console.log("  \\o o/");
+      console.log("   ¯¯¯");
+
+      console.log(`--------------------------------------------`);
+
+      console.log("=(')~ ");
+      console.log(" (¯¯¯¯)~ ");
+      console.log(" //¯¯\\\\ ");
+      console.log(`--------------------------------------------`);
+
       playAgain();
     }
   } else if (checkValidNum(num) === false) {
@@ -202,13 +216,14 @@ function playAgain() {
     const secret2 = randomNum();
     console.clear();
     // console.log(secret2);
-    let input2 = prompt(`Guess the number: `); // y or n
+    let input2 = prompt("\x1b[1mGuess the number: ");
     secret = secret2;
     counterRemaining = 5;
     counter = 0;
     bullsAndCows(input2);
   } else if (playAgain === "n") {
-    console.log(`${chalk.green("Thankyou for playing ")}`);
+    console.clear();
+    console.log(`${chalk.green.bold("Thankyou for playing ")}`);
     console.log(`--------------------------------------------`);
     rl.close();
   }
@@ -234,7 +249,7 @@ function setTimer() {
 
 //basic:
 function inputFromUser() {
-  rl.setPrompt("Guess the number: ");
+  rl.setPrompt("\x1b[1mGuess the number: ");
   // console.clear();
   rl.prompt();
   // counter--;
@@ -273,11 +288,3 @@ inputFromUser();
 // console.log("   ¯¯¯");
 // console.log(`--------------------------`);
 // // console.log("WW\\O O/WW");
-
-// rl.question("Are you sure you want to exit?(y/N)", (answer) => {
-//   if (answer.match(/^y(es)?$/i)) {
-//     rl.close();
-//   } else {
-//     rl.prompt(true);
-//   }
-// });

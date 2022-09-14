@@ -11,28 +11,22 @@
 //  Although we may want to use the user's name for something
 // const secret = randomNum();
 
-// const prompt = require("prompt-sync")({ sigint: true });
-// let input = prompt("Please guess the Number "); // Note there is a
-// console.log(input);
-
 const prompt = require("prompt-sync")({ sigint: true });
-
-// function main(num) {
-//   counterRemaining = 5;
-//   counter = 0;
-//   bullsAndCows(num);
-// }
-
-// main();
+let readline = require("readline");
+let rl = readline.createInterface(process.stdin, process.stdout);
+const chalk = require("chalk");
+let emoji = require("node-emoji");
 
 console.clear();
+
 let secret = randomNum();
-console.log(secret);
+// console.log(secret);
 
 // Bulls and Cows Function
 
 let counter = 0;
 let counterRemaining = 5;
+
 function bullsAndCows(num) {
   /////////////////////////////////////////////////////
 
@@ -69,48 +63,62 @@ function bullsAndCows(num) {
         // counter--;
       }
     }
-
+    console.log(`--------------------------------------------`);
     console.log(
-      `${counterBull} bull${counterBull > 1 ? "s" : ""} and ${counterCow} cow${
+      `${chalk.yellowBright(counterBull)} bull${
+        counterBull > 1 ? "s" : ""
+      } ${emoji.get("cow")} and ${chalk.blueBright(counterCow)} cow${
         counterCow > 1 ? "s" : ""
-      }`
+      } ${emoji.get("cow2")}`
     );
+
+    if (counterBull === 0 && counterCow === 0) {
+      // console.log(`come'on you can do it better`);
+      randomMessageGenerator();
+    }
+    // console.log(`----------------------------`);
     counter++;
     counterRemaining--;
     console.log(
-      `Attempts tried: ${counter} and Attempts Remaining: ${counterRemaining}`
+      `${chalk.green("Attempts Tried:")} ${counter} and ${chalk.red(
+        "Attempts Remaining:"
+      )} ${counterRemaining}`
     );
 
+    console.log(`--------------------------------------------`);
     if (counterRemaining === 0 && counterBull !== 4) {
-      console.log(`You have lost the game`);
-      rl.close();
-      return;
+      console.log(
+        `${chalk.red.underline.bold(
+          "YOU HAVE LOST THE GAME YOU LOSER"
+        )} ${emoji.get("skull_and_crossbones")}`
+      );
+      console.log(`--------------------------------------------`);
+      playAgain();
     }
 
-    // console.log(counter);
-    //   animateLetter();
-    //   console.clear();
     if (counterBull === 4) {
-      console.log(`Congratulations You have guessed correctly ${secret}`);
-      let playAgain = prompt(`Do you want to play again? Y/N `); // y or n
-      // console.log(playAgain);
-      if (playAgain === "y") {
-        const secret2 = randomNum();
-        console.clear();
-        // console.log(secret2);
-        let input2 = prompt(`Guess the number: `); // y or n
-        secret = secret2;
-        counterRemaining = 5;
-        counter = 0;
-        bullsAndCows(num);
-        // main(input2);
-      } else {
-        console.log(`Thankyou for playing `);
-        rl.close();
-      }
+      console.clear();
+      console.log(
+        `${counterBull} bull${counterBull > 1 ? "s" : ""} ${emoji.get(
+          "cow"
+        )} and ${counterCow} cow${counterCow > 1 ? "s" : ""} ${emoji.get(
+          "cow2"
+        )}`
+      );
+      console.log(`--------------------------------------------`);
+      console.log(
+        `${chalk.cyan.bold(
+          "Congratulations You have guessed correctly: "
+        )} ${secret}`
+      );
+      console.log(
+        `with ${chalk.red("Attempts Remaining:")} ${counterRemaining}`
+      );
+      console.log(`--------------------------------------------`);
+      playAgain();
     }
   } else if (checkValidNum(num) === false) {
-    console.log(`Please enter 4 digits!`);
+    console.log("Please enter 4 digits!");
   } else if (checkAllNum(num) === false) {
     console.log(`All values should be numbers!`);
   } else if (checkAllUnique(num) === false) {
@@ -163,76 +171,105 @@ function randomNum() {
   while (counter < totalDigits) {
     const idx = Math.ceil(Math.random() * array.length - 1);
     random += array[idx];
-    // console.log(array);
     array.splice(idx, 1);
     counter++;
   }
 
   return random;
 }
+/////////////////////////////////////////
+function randomMessageGenerator() {
+  const randomMessage = [
+    "Com'on you can do it better",
+    "Really???",
+    "What a shame",
+    "Oh 0 bulls and 0 cows",
+    "How you are gonna live with this?",
+    "You are a looooooser",
+  ];
+
+  const idx = Math.floor(Math.random() * randomMessage.length);
+  console.log(randomMessage[idx]);
+}
+
+// randomMessageGenerator();
+///////////////////////////////////////
+// Play Again
+function playAgain() {
+  let playAgain = prompt(`Do you want to play again? y/n `); // y or n
+  console.log(`--------------------------------------------`);
+  if (playAgain === "y") {
+    const secret2 = randomNum();
+    console.clear();
+    // console.log(secret2);
+    let input2 = prompt("\x1b[1mGuess the number: ");
+    secret = secret2;
+    counterRemaining = 5;
+    counter = 0;
+    bullsAndCows(input2);
+  } else if (playAgain === "n") {
+    console.log(`${chalk.green("Thankyou for playing ")}`);
+    console.log(`--------------------------------------------`);
+    rl.close();
+  }
+}
 
 // Animating Text
 
 function setTimer() {
-  let string = "";
-  // console.log(this)
+  let time = 60;
 
   const interval = setInterval(() => {
     console.clear();
-    string += " ";
-    console.log(string + "a");
-  }, 200);
+    // inputFromUser();
+    console.log(`${chalk.red("Remaining time:")} ${chalk.green(time--)}`);
+  }, 1000);
 
-  setTimeout(() => clearInterval(interval), 8000);
+  setTimeout(() => clearInterval(interval), 62000);
 }
+
+// setTimer();
 
 // Taking the input from User using Terminal
 
 //basic:
-let readline = require("readline");
-let rl = readline.createInterface(process.stdin, process.stdout);
-rl.setPrompt("Guess the number: ");
-// console.clear();
-rl.prompt();
-// counter--;
-rl.on("line", function (input) {
-  if (
-    checkValidNum(input) === true &&
-    checkAllNum(input) === true &&
-    checkAllUnique(input) === true
-  ) {
-    if (bullsAndCows(input)) {
-      //   console.log(`This is the new counter`);
+function inputFromUser() {
+  rl.setPrompt("\x1b[1mGuess the number: ");
+  // console.clear();
+  rl.prompt();
+  // counter--;
+  rl.on("line", function (input) {
+    if (
+      checkValidNum(input) === true &&
+      checkAllNum(input) === true &&
+      checkAllUnique(input) === true
+    ) {
+      // setTimer();
+      if (bullsAndCows(input)) {
+        //   console.log(`This is the new counter`);
 
-      rl.close();
-    } else {
-      //   console.log(input);
+        rl.close();
+      }
+    } else if (checkValidNum(input) === false) {
+      console.log("Please enter 4 digits!");
+    } else if (checkAllNum(input) === false) {
+      console.log(`All values should be numbers!`);
+    } else if (checkAllUnique(input) === false) {
+      console.log(`All digits should be unique!`);
     }
-  } else if (checkValidNum(input) === false) {
-    console.log(`Please enter 4 digits!`);
-  } else if (checkAllNum(input) === false) {
-    console.log(`All values should be numbers!`);
-  } else if (checkAllUnique(input) === false) {
-    console.log(`All digits should be unique!`);
-  }
-});
+  });
+}
 
-// console.log("=(')~ ");
-// console.log(" (¯¯¯¯)~ ");
-// console.log(" //¯¯\\\\ ");
-// console.log(`--------------------------`);
+// inputFromUser();
 
+console.log("=(')~ ");
+console.log(" (¯¯¯¯)~ ");
+console.log(" //¯¯\\\\ ");
+console.log(`--------------------------`);
+
+console.log("WW\\O O/WW");
+console.log("  | v |");
+console.log("  \\o o/");
+console.log("   ¯¯¯");
+console.log(`--------------------------`);
 // console.log("WW\\O O/WW");
-// console.log("  | v |");
-// console.log("  \\o o/");
-// console.log("   ¯¯¯");
-// console.log(`--------------------------`);
-// // console.log("WW\\O O/WW");
-
-// rl.question("Are you sure you want to exit?(y/N)", (answer) => {
-//   if (answer.match(/^y(es)?$/i)) {
-//     rl.close();
-//   } else {
-//     rl.prompt(true);
-//   }
-// });

@@ -116,17 +116,7 @@ function bullsAndCows(num) {
       console.log(
         `with ${chalk.red("Attempts Remaining:")} ${counterRemaining}`
       );
-      console.log(`--------------------------------------------`);
-      console.log("WW\\O O/WW");
-      console.log("  | v |");
-      console.log("  \\o o/");
-      console.log("   ¯¯¯");
 
-      console.log(`--------------------------------------------`);
-
-      console.log("=(')~ ");
-      console.log(" (¯¯¯¯)~ ");
-      console.log(" //¯¯\\\\ ");
       console.log(`--------------------------------------------`);
 
       playAgain();
@@ -194,12 +184,14 @@ function randomNum() {
 /////////////////////////////////////////
 function randomMessageGenerator() {
   const randomMessage = [
-    "Com'on you can do it better",
-    "Really???",
+    "C'mon you can do it better",
+    "Really??? You cant guess???",
     "What a shame",
-    "Oh 0 bulls and 0 cows",
+    "Oh 0 bulls and 0 cows... feel sorry for you",
     "How you are gonna live with this?",
     "You are a looooooser",
+    "Go home and sleep",
+    "Step away and let the big boys play",
   ];
 
   const idx = Math.floor(Math.random() * randomMessage.length);
@@ -215,7 +207,20 @@ function playAgain() {
   if (playAgain === "y") {
     const secret2 = randomNum();
     console.clear();
-    // console.log(secret2);
+    console.log(`              \x1b[1m\x1b[32mBulls and Cows\x1b[0m`);
+    console.log(`--------------------------------------------`);
+    console.log("                 WW\\O O/WW");
+    console.log("                   | v |");
+    console.log("                   \\o o/");
+    console.log("                    ¯¯¯");
+
+    console.log(`--------------------------------------------`);
+
+    console.log("                 =(')~ ");
+    console.log("                  (¯¯¯¯)~ ");
+    console.log("                  //¯¯\\\\ ");
+    console.log(`--------------------------------------------`);
+
     let input2 = prompt("\x1b[1mGuess the number: ");
     secret = secret2;
     counterRemaining = 5;
@@ -249,6 +254,19 @@ function setTimer() {
 
 //basic:
 function inputFromUser() {
+  console.log(`              \x1b[1m\x1b[32mBulls and Cows\x1b[0m`);
+  console.log(`--------------------------------------------`);
+  console.log("                 WW\\O O/WW");
+  console.log("                   | v |");
+  console.log("                   \\o o/");
+  console.log("                    ¯¯¯");
+
+  console.log(`--------------------------------------------`);
+
+  console.log("                 =(')~ ");
+  console.log("                  (¯¯¯¯)~ ");
+  console.log("                  //¯¯\\\\ ");
+  console.log(`--------------------------------------------`);
   rl.setPrompt("\x1b[1mGuess the number: ");
   // console.clear();
   rl.prompt();
